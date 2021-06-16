@@ -17,8 +17,8 @@ function IndexPage() {
 
   useEffect(() => {
     fetch(
-      // 'https://sleepy-villani-37e19c.netlify.app/.netlify/functions/pingEvents'
-      'http://localhost:8888/.netlify/functions/pingEvents'
+      'https://admiring-borg-a3bba1.netlify.app/.netlify/functions/pingEvents'
+      // 'http://localhost:8888/.netlify/functions/pingEvents'
     )
       .then(res => res.json())
       .then(data => {
