@@ -3,17 +3,9 @@ import CommunityLogo from '../assets/Community-Learning.svg';
 import EventCard from '../components/event-card';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
-import mockEvents from '../mock-data/mockEvents';
 
 function IndexPage() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
-
-  useEffect(() => {
-    const getEvents = async () => {
-      setUpcomingEvents(mockEvents);
-    };
-    getEvents();
-  }, []);
 
   useEffect(() => {
     fetch(
@@ -22,28 +14,23 @@ function IndexPage() {
     )
       .then(res => res.json())
       .then(data => {
-        console.log(data.msg);
-
         let date_regex = /\w+(day), \w+ \d{1,2} (at) \d{1,2}:\d{1,2} \w+/g; // assumes this is the standard date format and will not change
 
-        // need date, title, picture, and event type (Online or in-person)
-        // ask about caching (browser or through functions??)
-
-        let { items } = data.msg;
-        items.forEach(item => {
-          let date_matches = item.content.match(date_regex);
-          let ID_matches = item.content.match(/\d{9}/g); // assuming the id is always a nine digit number
+        let { items } = data;
+        for (let i = 0; i < 3; i++) {
+          // only need to display the three most upcoming events
+          let date_matches = items[i].content.match(date_regex);
 
           let event = {
-            id: ID_matches ? ID_matches[0] : 'no id found...',
+            id: items[i].guid,
             time: date_matches ? date_matches[0] : 'no date found...',
-            name: item.title,
-            thumbnail: item.thumbnail,
-            is_online_event: item.content.includes('online'), // for now, I don't really see a better way to obtain this info, as there isn't any attribute that specifies this
+            name: items[i].title,
+            thumbnail: items[i].thumbnail,
+            is_online_event: items[i].content.includes('online'), // for now, I don't really see a better way to obtain this info, as there isn't any attribute that specifies this
           };
 
-          console.log(event);
-        });
+          setUpcomingEvents(prev => [...prev, event]);
+        }
       });
   }, []);
 
