@@ -23,7 +23,7 @@ const EventCard = ({ event }) => {
             {name}
           </p>
           <p className="text-FCCgray-200 font-Roboto font-medium md:text-xl">
-            {is_online_event ? 'Online Event' : 'In Person'}
+            {is_online_event ? 'Online Event' : 'In Person Event'}
           </p>
         </div>
       </a>
