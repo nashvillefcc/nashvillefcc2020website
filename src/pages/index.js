@@ -9,8 +9,8 @@ function IndexPage() {
 
   useEffect(() => {
     fetch(
-      // 'https://admiring-borg-a3bba1.netlify.app/.netlify/functions/pingEvents'
-      'http://localhost:8888/.netlify/functions/pingEvents' // for testing in local environment
+      'https://admiring-borg-a3bba1.netlify.app/.netlify/functions/pingEvents'
+      // 'http://localhost:8888/.netlify/functions/pingEvents' // for testing in local environment
     )
       .then(res => res.json())
       .then(data => {
