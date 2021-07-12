@@ -1,13 +1,11 @@
 // See https://tailwindcss.com/docs/configuration for details
 module.exports = {
-  purge: [
-    './src/**/*.js',
-  ],
+  purge: ['./src/**/*.js'],
   theme: {
     extend: {
       fontFamily: {
-        'Pacifico': ['Pacifico', 'cursive'],
-        'Roboto': ['Roboto', 'sans-serif'] // Ensure fonts with spaces have " " surrounding it.
+        Pacifico: ['Pacifico', 'cursive'],
+        Roboto: ['Roboto', 'sans-serif'], // Ensure fonts with spaces have " " surrounding it.
       },
       colors: {
         FCCorange: '#F68B1F',
@@ -24,5 +22,5 @@ module.exports = {
   },
   variants: {},
   // https://github.com/tailwindcss/custom-forms
-  plugins: [require("@tailwindcss/custom-forms")],
+  plugins: [require('@tailwindcss/custom-forms')],
 };

@@ -1,11 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import heroImage from '../images/freeCodeCampImage.jpeg';
+// import heroImage from '../images/freeCodeCampImage.jpeg';
 
 const EventCard = ({ event }) => {
   // utc_offset,
   // venue: { name: venueName },
-  const { id, is_online_event, name, time } = event;
+  const { id, is_online_event, name, time, thumbnail } = event;
+  console.log(thumbnail);
   return (
     <div className="p-4 border border-solid border-gray-400 mx-auto">
       <a
@@ -13,7 +14,7 @@ const EventCard = ({ event }) => {
         target="blank"
         rel="noopener noreferrer"
       >
-        <img className="object-cover" src={heroImage} />
+        <img className="object-cover w-full" src={thumbnail} />
         <div className="mt-4">
           <p className="text-blue-400 font-Roboto font-bold md:text-xl md:text-FCCgray-200">
             {time} CST
