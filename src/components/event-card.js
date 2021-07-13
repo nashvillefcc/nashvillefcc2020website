@@ -1,17 +1,12 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import heroImage from '../images/freeCodeCampImage.jpeg';
-import { formatUnixToLocaleString } from '../utils';
+// import heroImage from '../images/freeCodeCampImage.jpeg';
 
 const EventCard = ({ event }) => {
-  const {
-    id,
-    is_online_event,
-    name,
-    time,
-    utc_offset,
-    venue: { name: venueName },
-  } = event;
+  // utc_offset,
+  // venue: { name: venueName },
+  const { id, is_online_event, name, time, thumbnail } = event;
+  console.log(thumbnail);
   return (
     <div className="p-4 border border-solid border-gray-400 mx-auto">
       <a
@@ -19,16 +14,16 @@ const EventCard = ({ event }) => {
         target="blank"
         rel="noopener noreferrer"
       >
-        <img className="object-cover" src={heroImage} />
+        <img className="object-cover w-full" src={thumbnail} />
         <div className="mt-4">
           <p className="text-blue-400 font-Roboto font-bold md:text-xl md:text-FCCgray-200">
-            {formatUnixToLocaleString(time + utc_offset)} CST
+            {time} CST
           </p>
           <p className="text-FCCgray-200 font-Roboto font-extrabold text-lg md:text-2xl">
             {name}
           </p>
           <p className="text-FCCgray-200 font-Roboto font-medium md:text-xl">
-            {is_online_event ? 'Online Event' : venueName}
+            {is_online_event ? 'Online Event' : 'In Person Event'}
           </p>
         </div>
       </a>
@@ -41,7 +36,8 @@ EventCard.propTypes = {
     id: PropTypes.string,
     is_online_event: PropTypes.bool,
     name: PropTypes.string,
-    time: PropTypes.number,
+    time: PropTypes.string,
+    thumbnail: PropTypes.thumbnail,
     utc_offset: PropTypes.number,
     venue: PropTypes.shape({
       name: PropTypes.string,

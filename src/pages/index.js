@@ -3,16 +3,39 @@ import CommunityLogo from '../assets/Community-Learning.svg';
 import EventCard from '../components/event-card';
 import Layout from '../components/layout';
 import SEO from '../components/seo';
-import mockEvents from '../mock-data/mockEvents';
 
 function IndexPage() {
   const [upcomingEvents, setUpcomingEvents] = useState([]);
 
   useEffect(() => {
-    const getEvents = async () => {
-      setUpcomingEvents(mockEvents);
-    };
-    getEvents();
+    fetch();
+    'https://fcc-nashville.netlify.app/.netlify/functions/pingEvents' // For live site
+      // 'https://admiring-borg-a3bba1.netlify.app/.netlify/functions/pingEvents' // For live branch testing site
+      // 'http://localhost:8888/.netlify/functions/pingEvents' // for testing in local environment
+      .then(res => res.json())
+      .then(data => {
+        let date_regex = /\w+(day), \w+ \d{1,2} (at) \d{1,2}:\d{1,2} \w+/g; // assumes this is the standard date format and will not change
+        let id_regex = /\w+(?=\/$)/g; // gets the id at the end of the url
+        let events = [];
+        let { items } = data;
+        for (let i = 0; i < 3; i++) {
+          // only need to display the three most upcoming events
+          let date_matches = items[i].content.match(date_regex);
+          let id_matches = items[i].guid.match(id_regex);
+
+          console.log(data.items);
+          let event = {
+            id: id_matches ? id_matches[0] : 'no id found...',
+            time: date_matches ? date_matches[0] : 'no date found...',
+            name: items[i].title,
+            thumbnail: items[i].thumbnail,
+            is_online_event: items[i].content.includes('online'), // for now, I don't really see a better way to obtain this info, as there isn't any attribute that specifies this
+          };
+
+          events.push(event);
+        }
+        setUpcomingEvents(events);
+      });
   }, []);
 
   return (
